@@ -31,7 +31,7 @@ jobs:
             docker-compose --file docker-compose.test.yml build
             docker-compose --file docker-compose.test.yml run sut
           else
-            docker build . --file elasticsearch.Dockerfile
+            docker build .
           fi
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
