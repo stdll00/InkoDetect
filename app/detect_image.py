@@ -39,11 +39,7 @@ detection_model = load_model(model_name)
 def run_inference_for_single_image(model, image):
     image = np.asarray(image)
     # The input needs to be a tensor, convert it using `tf.convert_to_tensor`.
-    try:
-        input_tensor = tf.convert_to_tensor(image)
-    except ValueError:
-        # sometimes not working.
-        return
+    input_tensor = tf.convert_to_tensor(image)
     # The model expects a batch of images, so add an axis with `tf.newaxis`.
     input_tensor = input_tensor[tf.newaxis, ...]
 
@@ -81,7 +77,10 @@ def show_inference(image_np):
     # image_np = np.array(Image.open(image_path))
     # Actual detection.
 
-    output_dict = run_inference_for_single_image(detection_model, image_np)
+    try:
+        output_dict = run_inference_for_single_image(detection_model, image_np)
+    except ValueError:
+        return 0
     # Visualization of the results of a detection.
     if category_index[output_dict['detection_classes'][0]]['name'] != 'bird' \
             or output_dict['detection_scores'][0] < 0.5:
