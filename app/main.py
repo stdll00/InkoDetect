@@ -17,7 +17,7 @@ def notify_image_to_line(image_path, token):
 
 
 token = os.getenv("LINE_INKO_TOKEN")
-capture = cv.VideoCapture("")
+capture = cv.VideoCapture(os.getenv("WEBCOM_URL"))
 timeout_second = os.getenv("INKO_TIMEOUT", 3600)
 start = time.time()
 while True:
