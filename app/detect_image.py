@@ -39,7 +39,11 @@ detection_model = load_model(model_name)
 def run_inference_for_single_image(model, image):
     image = np.asarray(image)
     # The input needs to be a tensor, convert it using `tf.convert_to_tensor`.
-    input_tensor = tf.convert_to_tensor(image)
+    try:
+        input_tensor = tf.convert_to_tensor(image)
+    except ValueError:
+        # sometimes not working.
+        return
     # The model expects a batch of images, so add an axis with `tf.newaxis`.
     input_tensor = input_tensor[tf.newaxis, ...]
 
@@ -81,13 +85,13 @@ def show_inference(image_np):
     # Visualization of the results of a detection.
     if category_index[output_dict['detection_classes'][0]]['name'] != 'bird' \
             or output_dict['detection_scores'][0] < 0.5:
-        # if random.randint(0, 9) < 1:
-        #     print(0, "          ", output_dict['detection_scores'][:5], output_dict['detection_classes'][:5])
+        if random.randint(0, 9) < 1:
+            print(0, "          ", output_dict['detection_scores'][:5], output_dict['detection_classes'][:5])
         return 0
     if category_index[output_dict['detection_classes'][1]]['name'] != 'bird' \
             or output_dict['detection_scores'][1] < 0.5:
-        # print(1, output_dict['detection_scores'][1], output_dict['detection_scores'][:5],
-        #       output_dict['detection_classes'][:5])
+        print(1, output_dict['detection_scores'][1], output_dict['detection_scores'][:5],
+              output_dict['detection_classes'][:5])
         return 1
     return 2
 
