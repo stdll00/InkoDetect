@@ -2,4 +2,4 @@
 Just prototype
 
 
-Use google model
+鳥が2羽検知された場合にLINEへ送信するプログラムです
