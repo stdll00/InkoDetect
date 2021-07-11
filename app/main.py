@@ -18,7 +18,8 @@ def notify_image_to_line(image_path, token):
 
 token = os.getenv("LINE_INKO_TOKEN")
 capture = cv.VideoCapture(os.getenv("WEBCOM_URL"))
-timeout_second = os.getenv("INKO_TIMEOUT", 3600)
+timeout_second = int(os.getenv("INKO_TIMEOUT", 3600))
+bird_count = int(os.getenv("BIRD_COUNT"), 2)
 start = time.time()
 while True:
     if time.time() - start > timeout_second:
@@ -27,8 +28,8 @@ while True:
     ret, frame = capture.read()
     birds = show_inference(frame)
     if birds == 0:
-        time.sleep(3)
-    if birds >= 2:
+        time.sleep(2)
+    if birds >= bird_count:
         cv.imwrite('output.jpg', frame[:, 200:-1])
         notify_image_to_line(image_path="output.jpg", token=token)
         capture.release()
