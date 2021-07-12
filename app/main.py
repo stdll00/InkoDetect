@@ -19,7 +19,7 @@ def notify_image_to_line(image_path, token):
 token = os.getenv("LINE_INKO_TOKEN")
 capture = cv.VideoCapture(os.getenv("WEBCOM_URL"))
 timeout_second = int(os.getenv("INKO_TIMEOUT", 3600))
-bird_count = int(os.getenv("BIRD_COUNT"), 2)
+bird_count = int(os.getenv("BIRD_COUNT", 2))
 start = time.time()
 while True:
     if time.time() - start > timeout_second:
