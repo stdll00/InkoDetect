@@ -1,7 +1,7 @@
 FROM tensorflow/tensorflow
 RUN apt update && yes | apt upgrade
 RUN mkdir -p /tensorflow/models
-RUN apt install -y git python-pip
+RUN apt install -y git python3-pip
 RUN pip install --upgrade pip
 RUN apt install -y protobuf-compiler python-pil python-lxml
 RUN git clone https://github.com/tensorflow/models.git /tensorflow/models
