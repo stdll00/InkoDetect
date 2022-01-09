@@ -28,7 +28,7 @@ while True:
     ret, frame = capture.read()
     birds = show_inference(frame)
     if birds >= bird_count:
-        cv.imwrite('output.jpg', frame[:, 200:-1])
+        cv.imwrite('output.jpg', frame[:, :])
         notify_image_to_line(image_path="output.jpg", token=token)
         capture.release()
         print("Program complete")
